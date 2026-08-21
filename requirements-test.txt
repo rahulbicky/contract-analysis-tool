@@ -1,0 +1,26 @@
+# Minimal set of dependencies needed to run the test suite.
+# sentence-transformers and unstructured[pdf] are stubbed out in
+# tests/conftest.py (they pull in torch / poppler / tesseract, which the
+# unit and API tests never actually exercise) — see conftest.py for why.
+
+langchain==1.2.18
+langchain-community==0.4.2
+langchain-experimental==0.4.2
+langgraph==1.1.10
+# langchain-groq / langchain-huggingface are imported lazily (see src/llm.py),
+# and the agents are mocked in tests, so the heavy ML deps aren't needed here.
+
+qdrant-client==1.18.0
+rank-bm25==0.2.2
+
+fastapi==0.136.1
+uvicorn==0.46.0
+python-multipart==0.0.32
+slowapi==0.1.10
+
+python-dotenv==1.2.2
+pydantic==2.13.3
+langsmith==0.8.3
+
+pytest==9.0.3
+httpx==0.28.1
