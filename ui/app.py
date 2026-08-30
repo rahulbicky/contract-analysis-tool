@@ -13,7 +13,7 @@ AUTH_HEADERS = {"X-API-Key": API_KEY}
 
 st.set_page_config(
     page_title="ContractLens - AI Contract Analysis",
-    page_icon="u2696uFE0F",
+    page_icon="⚖️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -55,14 +55,14 @@ online = api_ok()
 
 # SIDEBAR
 with st.sidebar:
-    st.markdown("<div style='font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#63b3ed,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;padding:8px 0 4px'>u2696uFE0F ContractLens</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#63b3ed,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;padding:8px 0 4px'>⚖️ ContractLens</div>", unsafe_allow_html=True)
     st.markdown("<div style='font-size:.78rem;color:#475569;margin-bottom:16px;'>AI Contract Risk Analysis</div>", unsafe_allow_html=True)
     if online:
         st.markdown('<span class="status-online"><span class="dot-g"></span> API Connected</span>', unsafe_allow_html=True)
     else:
         st.markdown('<span class="status-offline"><span class="dot-r"></span> API Offline</span>', unsafe_allow_html=True)
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
-    st.markdown("<div style='font-size:.8rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;'>u1F4B0 Cost Tracker</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:.8rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;'>💰 Cost Tracker</div>", unsafe_allow_html=True)
     if online:
         try:
             c = requests.get(f"{API_URL}/costs", headers=AUTH_HEADERS, timeout=3).json()
@@ -77,7 +77,7 @@ with st.sidebar:
     else:
         st.markdown("<div style='color:#475569;font-size:.85rem;padding:10px;background:rgba(15,25,50,.5);border-radius:8px;text-align:center;'>Start API server to see metrics</div>", unsafe_allow_html=True)
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
-    st.markdown("<div style='font-size:.8rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;'>u1F4CA Eval Scores</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:.8rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;'>📊 Eval Scores</div>", unsafe_allow_html=True)
     try:
         ep = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"data","evaluation","results.json")
         with open(ep) as f: er = json.load(f)
@@ -85,26 +85,26 @@ with st.sidebar:
         for m in ["exact_match","faithfulness","answer_relevancy","context_precision"]:
             if m in df.columns:
                 v=df[m].mean(); c2="#4ade80" if v>.8 else "#fbbf24" if v>.6 else "#f87171"
-                i="u1F7E2" if v>.8 else "u1F7E1" if v>.6 else "uD83D\uDD34"
+                i="🟢" if v>.8 else "🟡" if v>.6 else "uD83D\uDD34"
                 st.markdown(f"<div style='display:flex;justify-content:space-between;padding:8px 10px;margin:3px 0;background:rgba(15,25,50,.6);border:1px solid rgba(99,179,237,.1);border-radius:7px;'><span style='font-size:.8rem;color:#94a3b8;'>{m.replace(\"_\",\" \").title()}</span><span style='font-size:.82rem;font-weight:700;color:{c2};'>{v:.3f}</span></div>", unsafe_allow_html=True)
     except:
         st.markdown("<div style='color:#475569;font-size:.82rem;padding:10px;background:rgba(15,25,50,.5);border-radius:8px;text-align:center;'>Run evaluation to see scores</div>", unsafe_allow_html=True)
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
-    if st.button("u1F504 Analyze New Contract", use_container_width=True):
+    if st.button("🔄 Analyze New Contract", use_container_width=True):
         for k in ["thread_id","status","triage","report"]: st.session_state[k]=None
         st.rerun()
 
 # HERO
 st.markdown("""
 <div style='background:linear-gradient(135deg,rgba(14,28,60,.95),rgba(10,20,45,.95));border:1px solid rgba(99,179,237,.18);border-radius:20px;padding:32px 36px;margin-bottom:24px;'>
-  <h1 class="hero-title">u2696uFE0F ContractLens</h1>
-  <p class="hero-sub">Autonomous multi-agent AI that reads contracts, identifies risks, and generates structured reports u2014 with human-in-the-loop oversight.</p>
+  <h1 class="hero-title">⚖️ ContractLens</h1>
+  <p class="hero-sub">Autonomous multi-agent AI that reads contracts, identifies risks, and generates structured reports — with human-in-the-loop oversight.</p>
   <div style='margin-top:14px;'>
-    <span class="tag">u1F916 Groq LLM</span>
-    <span class="tag">u1F50D Hybrid RAG</span>
-    <span class="tag">u1F4D0 LangGraph Agents</span>
-    <span class="tag">u1F464 Human-in-the-Loop</span>
-    <span class="tag">u26A1 Cross-Encoder Reranker</span>
+    <span class="tag">🤖 Groq LLM</span>
+    <span class="tag">🔍 Hybrid RAG</span>
+    <span class="tag">📐 LangGraph Agents</span>
+    <span class="tag">👤 Human-in-the-Loop</span>
+    <span class="tag">⚡ Cross-Encoder Reranker</span>
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -113,30 +113,30 @@ st.markdown("""
 c1, c2 = st.columns([1,1], gap="large")
 
 with c1:
-    st.markdown("<div style='font-size:.82rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;'>u1F4E4 Upload Contract PDF</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:.82rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;'>📤 Upload Contract PDF</div>", unsafe_allow_html=True)
     uf = st.file_uploader("Drag & drop or click to browse", type=["pdf"], label_visibility="collapsed")
     if uf:
-        st.markdown(f"<div style='display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(99,179,237,.08);border:1px solid rgba(99,179,237,.2);border-radius:10px;margin:10px 0;'><span style='font-size:1.5rem;'>u1F4C4</span><div><div style='font-size:.9rem;font-weight:600;color:#e2e8f0;'>{uf.name}</div><div style='font-size:.78rem;color:#64748b;'>{uf.size/1024:.1f} KB</div></div></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(99,179,237,.08);border:1px solid rgba(99,179,237,.2);border-radius:10px;margin:10px 0;'><span style='font-size:1.5rem;'>📄</span><div><div style='font-size:.9rem;font-weight:600;color:#e2e8f0;'>{uf.name}</div><div style='font-size:.78rem;color:#64748b;'>{uf.size/1024:.1f} KB</div></div></div>", unsafe_allow_html=True)
         if not online:
-            st.error("u26A0uFE0F API server is offline. Start the backend first.")
-        if online and st.button("u26A1 Analyze Contract", type="primary", use_container_width=True):
+            st.error("⚠️ API server is offline. Start the backend first.")
+        if online and st.button("⚡ Analyze Contract", type="primary", use_container_width=True):
             pb = st.progress(0)
             try:
-                for p,msg in [(20,"u1F4C4 Parsing PDF..."),(45,"u1F50D Building index..."),(65,"u1F916 Triage agent..."),(82,"u1F52C Research agent..."),(92,"u1F4CB Generating report...")]:
+                for p,msg in [(20,"📄 Parsing PDF..."),(45,"🔍 Building index..."),(65,"🤖 Triage agent..."),(82,"🔬 Research agent..."),(92,"📋 Generating report...")]:
                     pb.progress(p, text=msg); time.sleep(0.25)
                 r = requests.post(f"{API_URL}/analyze", headers=AUTH_HEADERS, files={"file":(uf.name,uf,"application/pdf")}, timeout=300)
                 if r.status_code == 200:
                     d=r.json(); st.session_state.thread_id=d["thread_id"]; st.session_state.status=d["status"]
                     st.session_state.triage=d.get("triage"); st.session_state.report=d.get("report")
-                    pb.progress(100, text="u2705 Done!"); time.sleep(0.5); st.rerun()
+                    pb.progress(100, text="✅ Done!"); time.sleep(0.5); st.rerun()
                 else: pb.empty(); st.error(f"API Error {r.status_code}: {r.text}")
             except requests.exceptions.Timeout: pb.empty(); st.error("u23F1uFE0F Timed out. Try again.")
             except Exception as e: pb.empty(); st.error(f"Error: {e}")
     else:
-        st.markdown("<div style='padding:32px;background:rgba(15,25,50,.5);border:2px dashed rgba(99,179,237,.15);border-radius:14px;text-align:center;color:#475569;'><div style='font-size:2.5rem;margin-bottom:10px;'>u1F4CB</div><div style='font-size:.9rem;'>Upload a contract PDF to get started</div><div style='font-size:.78rem;margin-top:6px;color:#334155;'>NDA u00B7 Service Agreement u00B7 Employment u00B7 Lease</div></div>", unsafe_allow_html=True)
+        st.markdown("<div style='padding:32px;background:rgba(15,25,50,.5);border:2px dashed rgba(99,179,237,.15);border-radius:14px;text-align:center;color:#475569;'><div style='font-size:2.5rem;margin-bottom:10px;'>📋</div><div style='font-size:.9rem;'>Upload a contract PDF to get started</div><div style='font-size:.78rem;margin-top:6px;color:#334155;'>NDA · Service Agreement · Employment · Lease</div></div>", unsafe_allow_html=True)
 
 with c2:
-    st.markdown("<div style='font-size:.82rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;'>u1F4C4 Document Info</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:.82rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;'>📄 Document Info</div>", unsafe_allow_html=True)
     if st.session_state.triage:
         t=st.session_state.triage
         dt=t.get("document_type","Unknown"); cx=t.get("complexity","Unknown")
@@ -154,23 +154,23 @@ with c2:
             </div>
           </div>
           <div style='margin-bottom:12px;'><div style='font-size:.73rem;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px;'>Risk Areas</div><div>{chips}</div></div>
-          <div style='font-size:.82rem;color:#64748b;padding:10px 14px;background:rgba(0,0,0,.2);border-radius:8px;line-height:1.5;'>u1F4AD {rn}</div>
+          <div style='font-size:.82rem;color:#64748b;padding:10px 14px;background:rgba(0,0,0,.2);border-radius:8px;line-height:1.5;'>💭 {rn}</div>
         </div>""", unsafe_allow_html=True)
-        if rh: st.warning("u1F464 This contract requires human review before processing continues.")
-        else:  st.success("u2705 Auto-processed u2014 no human review required.")
+        if rh: st.warning("👤 This contract requires human review before processing continues.")
+        else:  st.success("✅ Auto-processed — no human review required.")
     else:
-        st.markdown("<div style='background:rgba(15,25,50,.5);border:1px solid rgba(99,179,237,.08);border-radius:14px;padding:32px;text-align:center;'><div style='font-size:2rem;margin-bottom:10px;'>u1F50D</div><div style='color:#475569;font-size:.9rem;'>Document details appear here after analysis</div></div>", unsafe_allow_html=True)
+        st.markdown("<div style='background:rgba(15,25,50,.5);border:1px solid rgba(99,179,237,.08);border-radius:14px;padding:32px;text-align:center;'><div style='font-size:2rem;margin-bottom:10px;'>🔍</div><div style='color:#475569;font-size:.9rem;'>Document details appear here after analysis</div></div>", unsafe_allow_html=True)
 
 # HUMAN GATE
 if st.session_state.status == "pending_approval":
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
-    st.markdown("<div style='background:linear-gradient(135deg,rgba(120,53,15,.4),rgba(146,64,14,.25));border:1px solid rgba(245,158,11,.35);border-radius:16px;padding:20px;margin-bottom:16px;'><div style='font-size:1.1rem;font-weight:700;color:#fbbf24;margin-bottom:6px;'>u1F6D1 Human Review Required</div><div style='color:#fde68a;font-size:.88rem;'>This contract was flagged for human review. Please approve or reject below.</div></div>", unsafe_allow_html=True)
+    st.markdown("<div style='background:linear-gradient(135deg,rgba(120,53,15,.4),rgba(146,64,14,.25));border:1px solid rgba(245,158,11,.35);border-radius:16px;padding:20px;margin-bottom:16px;'><div style='font-size:1.1rem;font-weight:700;color:#fbbf24;margin-bottom:6px;'>🛑 Human Review Required</div><div style='color:#fde68a;font-size:.88rem;'>This contract was flagged for human review. Please approve or reject below.</div></div>", unsafe_allow_html=True)
     t=st.session_state.triage or {}
     if t.get("reasoning"): st.markdown(f"<div style='padding:10px 14px;background:rgba(15,25,50,.6);border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;color:#94a3b8;font-size:.86rem;margin-bottom:16px;'><b style='color:#fbbf24;'>Reasoning:</b> {t['reasoning']}</div>", unsafe_allow_html=True)
     ca,cr=st.columns(2,gap="large")
     with ca:
         notes=st.text_area("Notes (optional)", placeholder="e.g. Standard contract, proceed", key="notes", height=80)
-        if st.button("u2705 Approve & Continue", type="primary", use_container_width=True):
+        if st.button("✅ Approve & Continue", type="primary", use_container_width=True):
             with st.spinner("Resuming..."):
                 try:
                     r=requests.post(f"{API_URL}/approve/{st.session_state.thread_id}",headers=AUTH_HEADERS,json={"approved":True,"notes":notes},timeout=300)
@@ -179,7 +179,7 @@ if st.session_state.status == "pending_approval":
                 except Exception as e: st.error(f"Error: {e}")
     with cr:
         reason=st.text_area("Reason for rejection", placeholder="e.g. Wrong document", key="reason", height=80)
-        if st.button("u274C Reject Contract", use_container_width=True):
+        if st.button("❌ Reject Contract", use_container_width=True):
             try:
                 requests.post(f"{API_URL}/approve/{st.session_state.thread_id}",headers=AUTH_HEADERS,json={"approved":False,"notes":reason},timeout=30)
                 st.session_state.status="rejected"; st.rerun()
@@ -188,44 +188,44 @@ if st.session_state.status == "pending_approval":
 # REJECTED
 if st.session_state.status == "rejected":
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
-    st.markdown("<div style='background:rgba(127,29,29,.3);border:1px solid rgba(239,68,68,.3);border-radius:14px;padding:24px;text-align:center;'><div style='font-size:2rem;margin-bottom:8px;'>u274C</div><div style='font-size:1.1rem;font-weight:600;color:#f87171;'>Contract Rejected</div><div style='color:#94a3b8;font-size:.88rem;margin-top:6px;'>This contract was rejected and will not be processed further.</div></div>", unsafe_allow_html=True)
+    st.markdown("<div style='background:rgba(127,29,29,.3);border:1px solid rgba(239,68,68,.3);border-radius:14px;padding:24px;text-align:center;'><div style='font-size:2rem;margin-bottom:8px;'>❌</div><div style='font-size:1.1rem;font-weight:600;color:#f87171;'>Contract Rejected</div><div style='color:#94a3b8;font-size:.88rem;margin-top:6px;'>This contract was rejected and will not be processed further.</div></div>", unsafe_allow_html=True)
 
 # REPORT
 if st.session_state.status == "completed" and st.session_state.report:
     rpt=st.session_state.report
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
-    st.markdown("<div style='font-size:.82rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;'>u1F4CA Risk Report</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:.82rem;font-weight:600;color:#63b3ed;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;'>📊 Risk Report</div>", unsafe_allow_html=True)
     ov=rpt.get("overall_risk","unknown").lower()
-    if ov=="high":   bc="rgba(127,29,29,.5)"; bbd="rgba(239,68,68,.4)"; bi="u1F6A8"; bclr="#f87171"
-    elif ov=="medium": bc="rgba(120,53,15,.5)"; bbd="rgba(245,158,11,.4)"; bi="u26A0uFE0F"; bclr="#fbbf24"
-    else:            bc="rgba(20,83,45,.5)"; bbd="rgba(34,197,94,.4)"; bi="u2705"; bclr="#4ade80"
+    if ov=="high":   bc="rgba(127,29,29,.5)"; bbd="rgba(239,68,68,.4)"; bi="🚨"; bclr="#f87171"
+    elif ov=="medium": bc="rgba(120,53,15,.5)"; bbd="rgba(245,158,11,.4)"; bi="⚠️"; bclr="#fbbf24"
+    else:            bc="rgba(20,83,45,.5)"; bbd="rgba(34,197,94,.4)"; bi="✅"; bclr="#4ade80"
     st.markdown(f"<div style='background:{bc};border:1px solid {bbd};border-radius:14px;padding:20px;text-align:center;margin-bottom:16px;'><div style='font-size:2.2rem;margin-bottom:6px;'>{bi}</div><div style='font-size:1.4rem;font-weight:800;color:{bclr};'>{ov.upper()} RISK</div><div style='color:#94a3b8;font-size:.88rem;margin-top:8px;max-width:600px;margin-left:auto;margin-right:auto;'>{rpt.get('summary','')}</div></div>", unsafe_allow_html=True)
     if rpt.get("recommended_action"):
-        st.markdown(f"<div style='padding:12px 16px;background:rgba(99,179,237,.08);border:1px solid rgba(99,179,237,.18);border-radius:10px;margin-bottom:16px;'><span style='color:#63b3ed;font-weight:600;font-size:.84rem;'>u2192 RECOMMENDED ACTION: </span><span style='color:#e2e8f0;font-size:.88rem;'>{rpt.get('recommended_action')}</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='padding:12px 16px;background:rgba(99,179,237,.08);border:1px solid rgba(99,179,237,.18);border-radius:10px;margin-bottom:16px;'><span style='color:#63b3ed;font-weight:600;font-size:.84rem;'>→ RECOMMENDED ACTION: </span><span style='color:#e2e8f0;font-size:.88rem;'>{rpt.get('recommended_action')}</span></div>", unsafe_allow_html=True)
     fbr=rpt.get("findings_by_risk",{}); hi=fbr.get("high",[]); me=fbr.get("medium",[]); lo=fbr.get("low",[])
-    st.markdown(f"<div class='metric-row'><div class='mcard'><div class='mval' style='color:#f87171;'>{len(hi)}</div><div class='mlbl'>u1F6A8 High</div></div><div class='mcard'><div class='mval' style='color:#fbbf24;'>{len(me)}</div><div class='mlbl'>u26A0uFE0F Medium</div></div><div class='mcard'><div class='mval' style='color:#4ade80;'>{len(lo)}</div><div class='mlbl'>u2705 Low</div></div><div class='mcard'><div class='mval' style='color:#94a3b8;'>{len(hi)+len(me)+len(lo)}</div><div class='mlbl'>u1F4CB Total</div></div></div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='metric-row'><div class='mcard'><div class='mval' style='color:#f87171;'>{len(hi)}</div><div class='mlbl'>🚨 High</div></div><div class='mcard'><div class='mval' style='color:#fbbf24;'>{len(me)}</div><div class='mlbl'>⚠️ Medium</div></div><div class='mcard'><div class='mval' style='color:#4ade80;'>{len(lo)}</div><div class='mlbl'>✅ Low</div></div><div class='mcard'><div class='mval' style='color:#94a3b8;'>{len(hi)+len(me)+len(lo)}</div><div class='mlbl'>📋 Total</div></div></div>", unsafe_allow_html=True)
     if hi:
-        st.markdown("<div class='div'></div><div style='font-size:1rem;font-weight:700;color:#f87171;margin-bottom:10px;'>u1F6A8 High Risk Findings</div>", unsafe_allow_html=True)
+        st.markdown("<div class='div'></div><div style='font-size:1rem;font-weight:700;color:#f87171;margin-bottom:10px;'>🚨 High Risk Findings</div>", unsafe_allow_html=True)
         for f in hi:
-            src=f.get("source_chunk",""); sp=f'<div style="font-size:.78rem;opacity:.6;font-style:italic;margin-top:6px;">u1F4CC "{src[:200]}{"..." if len(src)>200 else ""}"</div>' if src else ""
-            st.markdown(f'<div class="risk-high"><div style="font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px;">{f.get("clause_type","").upper()}</div><div style="font-size:.95rem;line-height:1.6;margin-bottom:8px;">{f.get("finding","")}</div>{sp}<div style="font-size:.85rem;opacity:.85;padding:8px 12px;background:rgba(0,0,0,.2);border-radius:8px;margin-top:8px;">u2192 <b>Recommendation:</b> {f.get("recommendation","")}</div></div>', unsafe_allow_html=True)
+            src=f.get("source_chunk",""); sp=f'<div style="font-size:.78rem;opacity:.6;font-style:italic;margin-top:6px;">📌 "{src[:200]}{"..." if len(src)>200 else ""}"</div>' if src else ""
+            st.markdown(f'<div class="risk-high"><div style="font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px;">{f.get("clause_type","").upper()}</div><div style="font-size:.95rem;line-height:1.6;margin-bottom:8px;">{f.get("finding","")}</div>{sp}<div style="font-size:.85rem;opacity:.85;padding:8px 12px;background:rgba(0,0,0,.2);border-radius:8px;margin-top:8px;">→ <b>Recommendation:</b> {f.get("recommendation","")}</div></div>', unsafe_allow_html=True)
     if me:
-        st.markdown("<div class='div'></div><div style='font-size:1rem;font-weight:700;color:#fbbf24;margin-bottom:10px;'>u26A0uFE0F Medium Risk Findings</div>", unsafe_allow_html=True)
+        st.markdown("<div class='div'></div><div style='font-size:1rem;font-weight:700;color:#fbbf24;margin-bottom:10px;'>⚠️ Medium Risk Findings</div>", unsafe_allow_html=True)
         for f in me:
-            st.markdown(f'<div class="risk-medium"><div style="font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px;">{f.get("clause_type","").upper()}</div><div style="font-size:.95rem;line-height:1.6;margin-bottom:8px;">{f.get("finding","")}</div><div style="font-size:.85rem;opacity:.85;padding:8px 12px;background:rgba(0,0,0,.2);border-radius:8px;margin-top:8px;">u2192 <b>Recommendation:</b> {f.get("recommendation","")}</div></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="risk-medium"><div style="font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px;">{f.get("clause_type","").upper()}</div><div style="font-size:.95rem;line-height:1.6;margin-bottom:8px;">{f.get("finding","")}</div><div style="font-size:.85rem;opacity:.85;padding:8px 12px;background:rgba(0,0,0,.2);border-radius:8px;margin-top:8px;">→ <b>Recommendation:</b> {f.get("recommendation","")}</div></div>', unsafe_allow_html=True)
     if lo:
-        st.markdown("<div class='div'></div><div style='font-size:1rem;font-weight:700;color:#4ade80;margin-bottom:10px;'>u2705 Low Risk Findings</div>", unsafe_allow_html=True)
+        st.markdown("<div class='div'></div><div style='font-size:1rem;font-weight:700;color:#4ade80;margin-bottom:10px;'>✅ Low Risk Findings</div>", unsafe_allow_html=True)
         for f in lo:
             st.markdown(f'<div class="risk-low"><div style="font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.8;margin-bottom:6px;">{f.get("clause_type","").upper()}</div><div style="font-size:.95rem;line-height:1.6;">{f.get("finding","")}</div></div>', unsafe_allow_html=True)
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
     tid2=(st.session_state.thread_id or "report")[:8]
-    st.download_button("u1F4E5 Download Full Report (JSON)", data=json.dumps(rpt,indent=2), file_name=f"contractlens_{tid2}.json", mime="application/json", use_container_width=True)
+    st.download_button("📥 Download Full Report (JSON)", data=json.dumps(rpt,indent=2), file_name=f"contractlens_{tid2}.json", mime="application/json", use_container_width=True)
 
 # HOW IT WORKS
 if st.session_state.status is None and not (st.session_state.triage):
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
     st.markdown("<div style='text-align:center;font-size:.82rem;font-weight:600;color:#334155;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:24px;'>How It Works</div>", unsafe_allow_html=True)
     cols=st.columns(4,gap="medium")
-    items=[("u1F4C4","Upload","Drop any PDF contract u2014 NDA, service agreement, employment"),("u1F916","Analyze","AI agents triage, retrieve, and analyze risk clauses"),("u1F464","Review","Approve or override AI decisions on high-stakes contracts"),("u1F4CA","Report","Get structured HIGH / MEDIUM / LOW findings + recommendations")]
+    items=[("📄","Upload","Drop any PDF contract — NDA, service agreement, employment"),("🤖","Analyze","AI agents triage, retrieve, and analyze risk clauses"),("👤","Review","Approve or override AI decisions on high-stakes contracts"),("📊","Report","Get structured HIGH / MEDIUM / LOW findings + recommendations")]
     for col,(icon,title,desc) in zip(cols,items):
         col.markdown(f"<div style='background:rgba(15,25,50,.7);border:1px solid rgba(99,179,237,.1);border-radius:14px;padding:22px;text-align:center;'><div style='font-size:2rem;margin-bottom:10px;'>{icon}</div><div style='font-size:.85rem;font-weight:600;color:#93c5fd;margin-bottom:6px;'>{title}</div><div style='font-size:.78rem;color:#475569;line-height:1.5;'>{desc}</div></div>", unsafe_allow_html=True)
