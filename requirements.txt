@@ -12,10 +12,13 @@ langgraph==1.1.10
 qdrant-client==1.18.0
 
 # PDF Parsing
-unstructured[pdf]==0.23.1
-unstructured-inference==1.6.13
-pikepdf==10.9.1
-pdfminer.six==20250506
+# Loosened pins: unstructured, unstructured-inference, and pdfminer.six have
+# inter-dependent version requirements that conflict when all three are pinned
+# strictly. Let pip resolve a compatible set automatically.
+unstructured[pdf]>=0.16.0,<1.0.0
+unstructured-inference>=0.7.0,<2.0.0
+pikepdf>=8.0.0,<11.0.0
+pdfminer.six>=20231228
 
 # Retrieval
 rank-bm25==0.2.2
