@@ -1,4 +1,4 @@
-﻿import os
+import os
 import json
 import time
 import streamlit as st
@@ -85,8 +85,9 @@ with st.sidebar:
         for m in ["exact_match","faithfulness","answer_relevancy","context_precision"]:
             if m in df.columns:
                 v=df[m].mean(); c2="#4ade80" if v>.8 else "#fbbf24" if v>.6 else "#f87171"
-                i="🟢" if v>.8 else "🟡" if v>.6 else "uD83D\uDD34"
-                st.markdown(f"<div style='display:flex;justify-content:space-between;padding:8px 10px;margin:3px 0;background:rgba(15,25,50,.6);border:1px solid rgba(99,179,237,.1);border-radius:7px;'><span style='font-size:.8rem;color:#94a3b8;'>{m.replace(\"_\",\" \").title()}</span><span style='font-size:.82rem;font-weight:700;color:{c2};'>{v:.3f}</span></div>", unsafe_allow_html=True)
+                i="🟢" if v>.8 else "🟡" if v>.6 else "🔴"
+                label = m.replace("_", " ").title()
+                st.markdown(f"<div style='display:flex;justify-content:space-between;padding:8px 10px;margin:3px 0;background:rgba(15,25,50,.6);border:1px solid rgba(99,179,237,.1);border-radius:7px;'><span style='font-size:.8rem;color:#94a3b8;'>{label}</span><span style='font-size:.82rem;font-weight:700;color:{c2};'>{v:.3f}</span></div>", unsafe_allow_html=True)
     except:
         st.markdown("<div style='color:#475569;font-size:.82rem;padding:10px;background:rgba(15,25,50,.5);border-radius:8px;text-align:center;'>Run evaluation to see scores</div>", unsafe_allow_html=True)
     st.markdown("<div class='div'></div>", unsafe_allow_html=True)
