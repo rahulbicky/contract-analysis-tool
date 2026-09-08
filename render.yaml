@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: contractlens-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerCommand: uvicorn contractlens.api.main:app --host 0.0.0.0 --port 10000 --app-dir src
+    plan: starter
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: EMBEDDING_MODEL
+        value: sentence-transformers/all-MiniLM-L6-v2
+      - key: EMBEDDING_DIM
+        value: 384
+      - key: QDRANT_URL
+        sync: false
+      - key: QDRANT_API_KEY
+        sync: false
+      - key: LANGSMITH_API_KEY
+        sync: false
+      - key: CONTRACTLENS_API_KEY
+        sync: false
+      # Set to the contractlens-ui service's public URL after it's deployed
+      # (see DEPLOY.md) — Render assigns URLs only once a service exists.
+      - key: CONTRACTLENS_ALLOWED_ORIGINS
+        sync: false
+      - key: CONTRACTLENS_MAX_UPLOAD_MB
+        value: 20
+
+  - type: web
+    name: contractlens-ui
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerCommand: streamlit run ui/app.py --server.address 0.0.0.0 --server.port 10000
+    plan: starter
+    envVars:
+      - key: PORT
+        value: 10000
+      # Set to the contractlens-api service's public URL after it's deployed
+      # (see DEPLOY.md).
+      - key: CONTRACTLENS_API_URL
+        sync: false
+      - key: CONTRACTLENS_API_KEY
+        sync: false

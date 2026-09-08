@@ -1,0 +1,42 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  api:
+    build: .
+    command: ["uvicorn", "contractlens.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--app-dir", "src"]
+    ports:
+      - "8000:8000"
+    environment:
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-sentence-transformers/all-MiniLM-L6-v2}
+      EMBEDDING_DIM: ${EMBEDDING_DIM:-384}
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6333
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY:-}
+      CONTRACTLENS_API_KEY: ${CONTRACTLENS_API_KEY:?CONTRACTLENS_API_KEY must be set}
+      CONTRACTLENS_ALLOWED_ORIGINS: ${CONTRACTLENS_ALLOWED_ORIGINS:-http://localhost:8501}
+      CONTRACTLENS_MAX_UPLOAD_MB: ${CONTRACTLENS_MAX_UPLOAD_MB:-20}
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - qdrant
+
+  ui:
+    build: .
+    command: ["streamlit", "run", "ui/app.py", "--server.address", "0.0.0.0", "--server.port", "8501"]
+    ports:
+      - "8501:8501"
+    environment:
+      CONTRACTLENS_API_URL: http://api:8000
+      CONTRACTLENS_API_KEY: ${CONTRACTLENS_API_KEY:?CONTRACTLENS_API_KEY must be set}
+    depends_on:
+      - api
+
+volumes:
+  qdrant_data:

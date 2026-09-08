@@ -1,0 +1,40 @@
+# ── Core LLM & LangChain ───────────────────────────────────
+# Chat runs on Groq; embeddings run locally via sentence-transformers.
+# No OpenAI dependency.
+langchain==1.2.18
+langchain-groq==1.1.2
+langchain-huggingface==1.2.2
+langchain-community==0.4.2
+langchain-experimental==0.4.2
+langgraph==1.1.10
+
+# ── Vector Database ────────────────────────────────────────
+# Connects to local Qdrant server or falls back to embedded file mode.
+qdrant-client==1.18.0
+
+# ── PDF Parsing ────────────────────────────────────────────
+# unstructured[pdf] uses strategy="fast" — no Tesseract/Poppler needed.
+# pdfminer.six version must be >=20251230 to satisfy unstructured[pdf]==0.23.1.
+unstructured[pdf]==0.23.1
+pikepdf==10.9.1
+pdfminer.six>=20251230
+
+# ── Retrieval ──────────────────────────────────────────────
+# BM25 keyword search + sentence-transformers for CrossEncoder reranker
+# and HuggingFaceEmbeddings (all-MiniLM-L6-v2, runs locally, no API cost).
+rank-bm25==0.2.2
+sentence-transformers==5.6.0
+
+# ── API ────────────────────────────────────────────────────
+fastapi==0.136.1
+uvicorn==0.46.0
+python-multipart==0.0.32
+slowapi==0.1.10
+
+# ── UI ─────────────────────────────────────────────────────
+streamlit==1.55.0
+
+# ── Utilities ──────────────────────────────────────────────
+python-dotenv==1.2.2
+pydantic==2.13.3
+langsmith==0.8.3
