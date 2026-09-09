@@ -30,6 +30,7 @@ fastapi==0.136.1
 uvicorn==0.46.0
 python-multipart==0.0.32
 slowapi==0.1.10
+httpx==0.28.1
 
 # ── UI ─────────────────────────────────────────────────────
 streamlit==1.55.0
@@ -38,3 +39,6 @@ streamlit==1.55.0
 python-dotenv==1.2.2
 pydantic==2.13.3
 langsmith==0.8.3
+
+# ── Testing ────────────────────────────────────────────────
+pytest==9.0.3
