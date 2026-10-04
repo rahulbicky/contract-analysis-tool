@@ -27,29 +27,33 @@ BM25_INDEX_PATH = "./data/processed/bm25_index.pkl"
 CHUNKS_METADATA_PATH = "./data/processed/all_chunks_metadata.json"
 
 
+_qdrant_client: QdrantClient = None
+
+
 def get_qdrant_client() -> QdrantClient:
     """
-    Connect to Qdrant.
-    Uses QDRANT_URL (+ QDRANT_API_KEY) for Qdrant Cloud if set, otherwise
-    QDRANT_HOST/QDRANT_PORT for a local/self-hosted instance, falling back to
-    an embedded local-mode client if neither is reachable.
+    Return a shared Qdrant client (singleton).
+
+    Delegates to contractlens.retrieval.hybrid.get_qdrant() so that indexer
+    and retrieval code always share the SAME client instance.  This is critical
+    in embedded/local mode: QdrantLocal holds an exclusive portalocker file
+    lock on ./data/qdrant_local — opening a second client against the same
+    path raises AlreadyLocked and crashes the /analyze endpoint.
+
+    Priority:
+      1. QDRANT_URL  (Qdrant Cloud)
+      2. QDRANT_HOST / QDRANT_PORT  (local server)
+      3. ./data/qdrant_local  (embedded fallback, lock-safe singleton)
     """
-    try:
-        qdrant_url = os.getenv("QDRANT_URL")
-        if qdrant_url:
-            client = QdrantClient(url=qdrant_url, api_key=os.getenv("QDRANT_API_KEY"))
-        else:
-            client = QdrantClient(
-                host=os.getenv("QDRANT_HOST", "localhost"),
-                port=int(os.getenv("QDRANT_PORT", 6333))
-            )
-        client.get_collections()    # test connection
-        logger.info("✅ Connected to Qdrant server")
-        return client
-    except Exception:
-        logger.warning("⚠️  Qdrant server not found — using local mode")
-        client = QdrantClient(path="./data/qdrant_local")
-        return client
+    global _qdrant_client
+    if _qdrant_client is not None:
+        return _qdrant_client
+
+    # Delegate to hybrid.get_qdrant() — it already manages the singleton and
+    # the fallback-to-local logic with force_disable_check_same_thread=True.
+    from contractlens.retrieval.hybrid import get_qdrant
+    _qdrant_client = get_qdrant()
+    return _qdrant_client
 
 
 def create_collection(client: QdrantClient, collection_name: str = COLLECTION_NAME):

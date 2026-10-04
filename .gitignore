@@ -43,3 +43,5 @@ build/
 # OS
 Thumbs.db
 .DS_Store
+# NOTE: .env.example is intentionally NOT ignored — it's the template
+# for contributors. Only .env (with real secrets) is ignored (see line 3).

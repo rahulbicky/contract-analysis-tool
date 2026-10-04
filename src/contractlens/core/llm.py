@@ -25,9 +25,10 @@ _embeddings = None
 
 
 def get_chat_model(temperature: float = 0):
-    """Return a Groq chat model. Reads GROQ_API_KEY from the environment."""
+    """Return a Groq chat model. Reads GROQ_MODEL and GROQ_API_KEY from the environment at call time."""
     from langchain_groq import ChatGroq
-    return ChatGroq(model=CHAT_MODEL, temperature=temperature)
+    model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    return ChatGroq(model=model_name, temperature=temperature)
 
 
 def get_embeddings():
